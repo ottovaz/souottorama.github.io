@@ -88,6 +88,11 @@
     background: var(--rust); animation: pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  .nav-links a.now { color: var(--rust); display: inline-flex; align-items: center; gap: 6px; }
+  .nav-links a.now::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--rust); animation: pulse 2.4s ease-in-out infinite;
+  }
 
   /* GRID */
   .ed {
@@ -131,8 +136,8 @@
     padding: 7rem 0 var(--s9); border-top: 0;
   }
   .hero-grid {
-    max-width: var(--col-max); margin: 0 auto; padding: 0 var(--s6);
-    display: grid; grid-template-columns: 1.3fr 1fr;
+    max-width: 720px; margin: 0 auto; padding: 0 var(--s6);
+    display: grid; grid-template-columns: 1fr;
     gap: var(--s8); align-items: center; width: 100%;
   }
   .hero-eye {
@@ -307,6 +312,10 @@
   .chap-cover .cover-placeholder span { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; }
   .chap-cover .cover-placeholder em { font-family: var(--font-display); font-style: italic; font-size: 1.3rem; color: var(--ink-mute); }
 
+  /* OTTO PHOTO */
+  .otto-photo { width: 100%; max-width: 200px; overflow: hidden; margin-bottom: var(--s5); }
+  .otto-photo img { width: 100%; height: auto; filter: grayscale(100%) contrast(1.05); display: block; }
+
   /* SOBRE */
   .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s8); align-items: start; }
   .sobre-text p { font-size: 1.05rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: var(--s5); max-width: 42ch; }
@@ -369,7 +378,9 @@
     .foot-inner { grid-template-columns: 1fr; gap: var(--s5); }
     .foot-copy { flex-direction: column; gap: 0.25rem; }
 
-    .nav-links li:nth-child(n+4) { display: none; }
+    .nav-links { flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a { font-size: 0.6rem; }
+    .nav-logo { flex-shrink: 0; }
     .stream-links { gap: var(--s3); }
   }
 </style>
@@ -384,7 +395,7 @@
     <span class="sub">fragmenta</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#tracks" class="live">Faixas</a></li>
+    <li><a href="#tracks">Faixas</a></li>
     <li><a href="#video">Vídeo</a></li>
     <li><a href="#chapter">Capítulo I</a></li>
     <li><a href="#sobre">Sobre</a></li>
@@ -397,7 +408,7 @@
     <div class="hero-text">
       <p class="hero-eye">Cinco músicas. Um inverno. Nenhuma saída.</p>
       <h1 class="hero-mark">ottorama</h1>
-      <p class="hero-sub">erosão · dissonância · ruído · melancolia · catarse</p>
+      <p class="hero-sub">erosão · melancolia · catarse</p>
 
       <p class="hero-stream-label">Ouvir agora</p>
       <div class="stream-links">
@@ -413,10 +424,6 @@
       </dl>
     </div>
 
-    <figure class="hero-photo">
-      <img src="assets/perfil.jpg" alt="Otto — retrato em P&B">
-      <span class="stamp">ottorama<br>arq. fragmenta · 2026</span>
-    </figure>
   </div>
 </section>
 
@@ -604,6 +611,9 @@
         </div>
 
         <div class="sobre-bio">
+          <figure class="otto-photo">
+            <img src="assets/perfil.png" alt="Otto Vaz">
+          </figure>
           <h3>Otto Vaz</h3>
           <p class="role">pai nas horas não-vagas · geólogo · compositor</p>
           <p>Carioca vivendo nas Minas Gerais. Vinte anos de música entre Let's Go! (2004–2012) e Lunar Society Club (2016–hoje).</p>
@@ -646,5 +656,29 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var sectionIds = ['manifest', 'chapter', 'tracks', 'video', 'otto', 'ouvir', 'sobre'];
+  var links = document.querySelectorAll('.nav-links a');
+
+  function setActive(id) {
+    links.forEach(function (a) {
+      a.classList.remove('now');
+      if (a.getAttribute('href') === '#' + id) a.classList.add('now');
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sectionIds.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
