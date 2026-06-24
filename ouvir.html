@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ottorama — ouvir</title>
+<meta name="description" content="Ouça Fragmenta — o primeiro EP solo de ottorama. Cinco músicas. Um inverno. Nenhuma saída.">
+<meta property="og:title" content="ottorama — Fragmenta">
+<meta property="og:description" content="Cinco músicas. Um inverno. Nenhuma saída.">
+<meta property="og:image" content="assets/IMACULADA.png">
+<meta property="og:type" content="music.album">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:     #0c0c0c;
+    --surface:   #141414;
+    --border:    #2a2a2a;
+    --ink:       #f0f0f0;
+    --ink-soft:  #b0b0b0;
+    --ink-mute:  #666;
+    --ink-faint: #3a3a3a;
+    --rust:      #c0392b;
+    --rule:      1px solid var(--border);
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+    --font-mono:    'DM Mono', monospace;
+    --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+    --s6:2rem; --s7:3rem; --s8:4.5rem; --s9:6rem;
+    --page-max: 680px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100svh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* HEADER */
+  .site-header {
+    padding: var(--s5) var(--s5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--rule);
+    max-width: var(--page-max);
+    margin: 0 auto;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .wordmark .sep { width: 4px; height: 4px; background: var(--rust); border-radius: 50%; }
+  .wordmark .sub {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--ink-soft); }
+
+  /* MAIN LAYOUT */
+  .page-wrap {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 0 var(--s5) var(--s8);
+  }
+
+  /* FEATURED BLOCK */
+  .featured {
+    padding: var(--s6) 0;
+    border-bottom: var(--rule);
+  }
+
+  .feat-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--surface);
+    overflow: hidden;
+    margin-bottom: var(--s5);
+  }
+  .feat-cover img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(10%) contrast(1.02);
+    transition: filter 0.4s;
+  }
+  .feat-cover .cover-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: var(--s3); color: var(--ink-faint);
+  }
+  .feat-cover .cover-placeholder span {
+    font-family: var(--font-mono); font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  .feat-eye {
+    font-family: var(--font-mono); font-size: 0.62rem;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-mute); margin-bottom: var(--s3);
+    display: flex; align-items: center; gap: var(--s3);
+  }
+  .feat-eye::before { content: ""; width: 20px; height: 1px; background: var(--rust); }
+
+  .feat-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
+    line-height: 1.0; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: var(--s2);
+  }
+  .feat-title em { font-style: italic; }
+
+  .feat-by {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-mute); margin-bottom: var(--s4);
+  }
+
+  .feat-lyric {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--ink-soft); line-height: 1.5;
+    font-style: italic; margin-bottom: var(--s5);
+    padding-left: var(--s4);
+    border-left: 2px solid var(--rust);
+  }
+
+  /* SPOTIFY EMBED */
+  .feat-player {
+    margin-bottom: var(--s4);
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .feat-player iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  /* PLATFORM BUTTONS */
+  .feat-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s2);
+    margin-bottom: var(--s4);
+  }
+  .link-cell {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    border: var(--rule);
+    padding: 0.75rem var(--s4);
+    transition: all 0.18s;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--s2);
+  }
+  .link-cell:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .link-cell .arr { color: var(--rust); }
+
+  /* EM BREVE */
+  .feat-soon {
+    display: flex; align-items: center; gap: var(--s4);
+    padding: var(--s5) 0;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .feat-soon .soon-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border); flex-shrink: 0;
+  }
+  .feat-soon .soon-date { color: var(--ink-mute); }
+
+  /* TRACKLIST */
+  .tracklist {
+    padding-top: var(--s5);
+  }
+
+  .tracklist-eye {
+    font-family: var(--font-mono); font-size: 0.62rem;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint); margin-bottom: var(--s4);
+    display: flex; align-items: center; gap: var(--s3);
+  }
+  .tracklist-eye::before { content: ""; width: 20px; height: 1px; background: var(--border); }
+
+  .track-row {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: var(--s4); align-items: center;
+    padding: var(--s4) 0;
+    border-top: var(--rule);
+    cursor: pointer;
+    transition: opacity 0.18s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .track-row:last-of-type { border-bottom: var(--rule); }
+  .track-row:hover { opacity: 0.75; }
+
+  .track-row .tr-cover {
+    width: 48px; height: 48px;
+    background: var(--surface); overflow: hidden; flex-shrink: 0;
+  }
+  .track-row .tr-cover img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(20%);
+    display: block;
+  }
+  .track-row .tr-cover .cover-dim {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 0.48rem;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint);
+  }
+
+  .track-row .tr-info { min-width: 0; }
+  .track-row .tr-nm {
+    font-family: var(--font-display);
+    font-size: 1.05rem; line-height: 1.1;
+    margin-bottom: 2px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .track-row .tr-nm em { font-style: italic; }
+  .track-row .tr-dt {
+    font-family: var(--font-mono); font-size: 0.58rem;
+    color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .track-row .tr-action {
+    font-family: var(--font-mono); font-size: 0.58rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .track-row.live .tr-action { color: var(--rust); }
+  .track-row.soon .tr-action { color: var(--ink-faint); }
+
+  /* FOOTER */
+  .page-footer {
+    max-width: var(--page-max); margin: 0 auto;
+    padding: var(--s5) var(--s5) var(--s7);
+    border-top: var(--rule);
+    display: flex; justify-content: space-between;
+    gap: var(--s4); flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 0.58rem;
+    color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* DESKTOP: cover + info side by side */
+  @media (min-width: 600px) {
+    .site-header { padding: var(--s5) var(--s6); }
+    .page-wrap { padding: 0 var(--s6) var(--s8); }
+
+    .feat-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s6);
+      align-items: start;
+    }
+    .feat-cover { margin-bottom: 0; }
+    .feat-links { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-header">
+    <a href="index.html" class="wordmark">
+      ottorama
+      <span class="sep"></span>
+      <span class="sub">fragmenta</span>
+    </a>
+    <a href="index.html" class="back-link">ver o site completo →</a>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- FEATURED -->
+  <section class="featured" id="featured">
+    <div class="feat-inner">
+      <div class="feat-cover" id="feat-cover">
+        <div class="cover-placeholder"><span>carregando...</span></div>
+      </div>
+      <div class="feat-info">
+        <p class="feat-eye" id="feat-eye">ouvir agora</p>
+        <h1 class="feat-title" id="feat-title">—</h1>
+        <p class="feat-by">por ottorama</p>
+        <p class="feat-lyric" id="feat-lyric"></p>
+        <div class="feat-player" id="feat-player" style="display:none;"></div>
+        <div class="feat-links" id="feat-links" style="display:none;"></div>
+        <div class="feat-soon" id="feat-soon" style="display:none;">
+          <span class="soon-dot"></span>
+          <span>em breve ·&nbsp;</span>
+          <span class="soon-date" id="feat-soon-date"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKLIST -->
+  <section class="tracklist" id="tracklist">
+    <p class="tracklist-eye">as cinco músicas · fragmenta</p>
+    <div id="track-rows"></div>
+  </section>
+
+</div>
+
+<footer class="page-footer">
+  <span>© 2026 ottorama</span>
+  <span>Minas Gerais · Brasil</span>
+</footer>
+
+<script>
+(function () {
+  var SINGLES = {
+    imaculada: {
+      titulo: "Imaculada",
+      lyric: "o último abraço como ferida que não fecha.",
+      data: "21.06.2026",
+      capa: "assets/IMACULADA.png",
+      spotifyTrackId: "0VPxuw3ToymOPXAsFcUkF8",
+      links: {
+        spotify: "https://open.spotify.com/intl-pt/track/0VPxuw3ToymOPXAsFcUkF8?si=5b312237e6b54a09",
+        appleMusic: "https://music.apple.com/br/album/imaculada-single/6768474847",
+        youtubeMusic: "https://music.youtube.com/watch?v=w7eEzKrdNVk&si=EIsPlJcD7OfnM52X",
+        deezer: "https://link.deezer.com/s/33DJtVhfiOvmqyaSqGdmo",
+        amazonMusic: "https://music.amazon.com.br/tracks/B0H1FF16GB?marketplaceId=A2Q3Y263D00KWC&musicTerritory=BR&ref=dm_sh_2iHVmkN0Zb00aRLakQv4CUHPS"
+      },
+      lancada: true
+    },
+    "herois-imaginarios": {
+      titulo: "Heróis Imaginários",
+      lyric: "faces fragmentadas dos santos que inventamos para nós.",
+      data: "12.07.2026",
+      capa: "assets/02_HEROIS.png",
+      spotifyTrackId: null,
+      links: {},
+      lancada: false
+    },
+    insone: {
+      titulo: "Insone",
+      lyric: "\"meu corpo está lá, ao mesmo tempo você está bem longe.\"",
+      data: "02.08.2026",
+      capa: "assets/INSONE.png",
+      spotifyTrackId: null,
+      links: {},
+      lancada: false
+    },
+    "estrada-solidao": {
+      titulo: "Estrada Solidão",
+      lyric: "andando sem saber pra onde — uma rua dentro do vazio.",
+      data: "23.08.2026",
+      capa: "assets/ESTRADA.png",
+      spotifyTrackId: null,
+      links: {},
+      lancada: false
+    },
+    deserto: {
+      titulo: "Deserto",
+      lyric: "o rosto desenhado pelo contorno topográfico das dunas.",
+      data: "13.09.2026",
+      capa: "assets/DESERTO.png",
+      spotifyTrackId: null,
+      links: {},
+      lancada: false
+    }
+  };
+
+  var ORDER = ['imaculada', 'herois-imaginarios', 'insone', 'estrada-solidao', 'deserto'];
+
+  var PLATFORMS = [
+    { key: 'spotify',     label: 'Spotify' },
+    { key: 'appleMusic',  label: 'Apple Music' },
+    { key: 'youtubeMusic',label: 'YouTube Music' },
+    { key: 'deezer',      label: 'Deezer' },
+    { key: 'amazonMusic', label: 'Amazon Music' }
+  ];
+
+  function defaultKey() {
+    var last = null;
+    for (var i = 0; i < ORDER.length; i++) {
+      if (SINGLES[ORDER[i]].lancada) last = ORDER[i];
+    }
+    return last || ORDER[0];
+  }
+
+  function currentKey() {
+    var h = location.hash.replace('#', '');
+    return (h && SINGLES[h]) ? h : defaultKey();
+  }
+
+  function render(key) {
+    var s = SINGLES[key];
+
+    // Cover
+    var cover = document.getElementById('feat-cover');
+    cover.innerHTML = s.capa
+      ? '<img src="' + s.capa + '" alt="Capa — ' + s.titulo + '">'
+      : '<div class="cover-placeholder"><span>em breve</span></div>';
+
+    // Eye label
+    document.getElementById('feat-eye').textContent = s.lancada ? 'ouvir agora' : 'em breve';
+
+    // Title
+    var titleEl = document.getElementById('feat-title');
+    titleEl.innerHTML = s.titulo;
+
+    // Lyric
+    document.getElementById('feat-lyric').textContent = s.lyric;
+
+    // Player
+    var playerEl = document.getElementById('feat-player');
+    if (s.lancada && s.spotifyTrackId) {
+      playerEl.style.display = '';
+      playerEl.innerHTML =
+        '<iframe src="https://open.spotify.com/embed/track/' + s.spotifyTrackId +
+        '?utm_source=generator" width="100%" height="152"' +
+        ' allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"' +
+        ' loading="lazy"></iframe>';
+    } else {
+      playerEl.style.display = 'none';
+      playerEl.innerHTML = '';
+    }
+
+    // Platform buttons
+    var linksEl = document.getElementById('feat-links');
+    if (s.lancada && Object.keys(s.links).length > 0) {
+      linksEl.style.display = '';
+      var html = '';
+      PLATFORMS.forEach(function (p) {
+        if (s.links[p.key]) {
+          html += '<a href="' + s.links[p.key] + '" target="_blank" rel="noopener" class="link-cell">' +
+            '<span>' + p.label + '</span><span class="arr">→</span></a>';
+        }
+      });
+      linksEl.innerHTML = html;
+    } else {
+      linksEl.style.display = 'none';
+      linksEl.innerHTML = '';
+    }
+
+    // Em breve
+    var soonEl = document.getElementById('feat-soon');
+    if (!s.lancada) {
+      soonEl.style.display = '';
+      document.getElementById('feat-soon-date').textContent = s.data;
+    } else {
+      soonEl.style.display = 'none';
+    }
+
+    // Track rows
+    var others = ORDER.filter(function (k) { return k !== key; });
+    var rowsEl = document.getElementById('track-rows');
+    var rowsHtml = '';
+    others.forEach(function (k) {
+      var t = SINGLES[k];
+      var cls = 'track-row ' + (t.lancada ? 'live' : 'soon');
+      var action = t.lancada ? 'ouvir →' : 'em breve';
+      var coverHtml = t.capa
+        ? '<img src="' + t.capa + '" alt="' + t.titulo + '">'
+        : '<div class="cover-dim">em breve</div>';
+      rowsHtml +=
+        '<a href="#' + k + '" class="' + cls + '">' +
+        '<div class="tr-cover">' + coverHtml + '</div>' +
+        '<div class="tr-info">' +
+        '<div class="tr-nm">' + t.titulo + '</div>' +
+        '<div class="tr-dt">' + t.data + '</div>' +
+        '</div>' +
+        '<span class="tr-action">' + action + '</span>' +
+        '</a>';
+    });
+    rowsEl.innerHTML = rowsHtml;
+
+    // Update page title
+    document.title = 'ottorama — ' + s.titulo;
+  }
+
+  function update() {
+    render(currentKey());
+  }
+
+  window.addEventListener('hashchange', update);
+  document.addEventListener('DOMContentLoaded', update);
+})();
+</script>
+
+</body>
+</html>
